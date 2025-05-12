@@ -20,10 +20,58 @@ To Implement Diffie Hellman Key Exchange Algorithm
 
 ## Program:
 
+```
+#include <stdio.h>
 
+long long int power(long long int a, long long int b, long long int P) {
+    long long int res = 1;
+    a = a % P;
+    while (b > 0) {
+        if (b & 1)
+            res = (res * a) % P;
+        a = (a * a) % P;
+        b = b >> 1;
+    }
+    return res;
+}
+
+int main() {
+    long long int P, G, x, a, y, b, ka, kb;
+
+    printf("\n***** Diffie-Hellman Key Exchange Algorithm *****\n\n");
+
+    printf("Enter the value of P: ");
+    scanf("%lld", &P); // A prime number P is taken
+    printf("The value of P: %lld\n", P);
+
+    printf("Enter the value of G (Primitive root of P): ");
+    scanf("%lld", &G); // A primitive root for P, G is taken
+    printf("The value of G: %lld\n\n", G);
+
+    // Alice will choose the private key a
+    a = 4; // a is the chosen private key
+    printf("The private key a for Alice: %lld\n", a);
+    x = power(G, a, P); // gets the generated key
+
+    // Bob will choose the private key b
+    b = 3; // b is the chosen private key
+    printf("The private key b for Bob: %lld\n\n", b);
+    y = power(G, b, P); // gets the generated key
+
+    // Generating the secret key after the exchange of keys
+    ka = power(y, a, P); // Secret key for Alice
+    kb = power(x, b, P); // Secret key for Bob
+
+    printf("Secret key for Alice is: %lld\n", ka);
+    printf("Secret Key for Bob is: %lld\n", kb);
+
+    return 0;
+}
+```
 
 ## Output:
 
+![Screenshot 2025-05-12 091944](https://github.com/user-attachments/assets/2f06f991-74f7-4b95-9308-010ccc78b90c)
 
 
 ## Result:
